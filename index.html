@@ -125,14 +125,24 @@ p{margin:0 0 1em}
 
 /* ---------- 1 · HERO ---------- */
 .hero{padding:18px var(--gut) 52px;text-align:center}
-.locked .hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-bottom:40px}
-.hero-after{padding-top:34px}
-.hero .vsl-frame,.hero-after{width:100%}
-.hero-after .pill{margin-top:0}
-.hero .logo{width:76px;margin:0 auto 14px}
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center}
+.hero .vsl-frame,.hero-after,.unlock-slot{width:100%}
+.hero h1{margin-bottom:18px!important}
+/* reserva a altura do botão para nada pular quando ele aparecer */
+.unlock-slot{min-height:122px;padding-top:20px}
+.hero-after{animation:unlockIn .7s cubic-bezier(.2,.8,.2,1) both}
+@keyframes unlockIn{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+.unlocked-tag{display:inline-flex;align-items:center;gap:7px;margin:0 0 12px;font:800 12px/1 var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--green);background:rgba(109,194,75,.16);border-radius:100px;padding:8px 14px}
+.btn-next{position:relative;animation:nextPulse 2s ease-out .8s infinite}
+.btn-next svg{animation:nextArrow 1.4s ease-in-out infinite}
+.btn-next:hover svg{transform:none}
+@keyframes nextPulse{0%{box-shadow:0 0 0 0 rgba(29,106,49,.45)}70%{box-shadow:0 0 0 16px rgba(29,106,49,0)}100%{box-shadow:0 0 0 0 rgba(29,106,49,0)}}
+@keyframes nextArrow{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
+.hero-note{margin-top:4px}
+.hero .logo{width:68px;margin:0 auto 14px}
 .pill{display:inline-flex;align-items:center;gap:8px;font:700 11.5px/1.2 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--green);border:1px solid rgba(29,106,49,.35);border-radius:100px;padding:7px 14px;margin:0 0 14px}
 .pill i{width:6px;height:6px;border-radius:50%;background:var(--green);flex:none}
-.hero h1{font-size:clamp(40px,11.4vw,86px);line-height:.95;max-width:900px;margin:0 auto}
+.hero h1{font-size:clamp(36px,10.4vw,86px);line-height:.95;max-width:900px;margin:0 auto}
 .hero h1 .big{color:var(--green);white-space:nowrap;position:relative;display:inline-block}
 .hero h1 .big::after{content:"";position:absolute;left:-3%;right:-3%;bottom:.06em;height:.22em;background:var(--green-lt);opacity:.45;z-index:-1;border-radius:2px}
 .hero h1{position:relative;z-index:0}
@@ -149,7 +159,7 @@ p{margin:0 0 1em}
 .vsl-ph small{position:absolute;bottom:14px;left:0;right:0;font:600 11px/1 var(--body);letter-spacing:.2em;text-transform:uppercase;opacity:.7}
 @keyframes ring{0%{transform:scale(.9);opacity:1}100%{transform:scale(1.35);opacity:0}}
 .vsl vturb-smartplayer{position:relative;z-index:1;display:block;width:100%;height:100%}
-.hero-cta{margin-top:22px}
+.hero-cta{margin-top:0}
 .facts{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin:16px 0 0;padding:0;list-style:none;font:600 12.5px/1.2 var(--body);color:var(--text)}
 .facts li{background:var(--white);border-radius:100px;padding:7px 12px}
 .facts li::before{content:"✓";color:var(--green);font-weight:800;margin-right:6px}
@@ -325,8 +335,9 @@ footer p{margin:0 auto 6px;max-width:640px}
   .h2{font-size:clamp(52px,4.8vw,78px)}
   .lead{max-width:760px;font-size:20px}
   .hero .logo{width:104px}
-  .vsl-frame{max-width:1080px}
-  .hero h1{font-size:clamp(68px,6.2vw,104px);max-width:1150px}
+  /* vídeo dimensionado pela altura da tela: título + vídeo + botão cabem sem rolar */
+  .vsl-frame{max-width:max(560px,min(1080px,calc((100svh - 470px) * 16 / 9)))}
+  .hero h1{font-size:clamp(56px,5vw,88px);max-width:1150px}
   .hero .sub{max-width:760px;font-size:20px}
   .get{max-width:1200px;gap:18px}
   .get li{padding:34px 22px 30px}
@@ -385,7 +396,6 @@ footer p{margin:0 auto 6px;max-width:640px}
   .hero{padding:24px var(--gut) 72px}
   .hero .logo{width:96px;margin-bottom:20px}
   .hero .sub{font-size:18px;margin:20px auto 28px}
-  .hero-cta{margin-top:28px}
   .get{grid-template-columns:repeat(4,1fr);gap:14px}
   .get li{padding:28px 18px 26px}
   .get p{font-size:15px}
@@ -409,6 +419,7 @@ footer p{margin:0 auto 6px;max-width:640px}
 <!-- ======================= 1 · HERO ======================= -->
 <header class="hero" id="topo">
   <img class="logo" src="assets/logo.webp" width="520" height="436" alt="Método Reset 21" fetchpriority="high">
+  <h1>Você pode perder <span class="big">até 7 kg</span> nos próximos 21 dias</h1>
 
   <!-- VSL 16:9 · vturb -->
   <p class="vsl-label"><i></i>Assista ao vídeo com som ligado</p>
@@ -423,16 +434,16 @@ footer p{margin:0 auto 6px;max-width:640px}
   </div>
   <script type="text/javascript">var s=document.createElement("script");s.src="https://scripts.converteai.net/13af2f00-5f19-42bc-9771-0e00405f49f9/players/6ac66ed2e1c65eaf9182a9bf/v4/player.js",s.async=!0,document.head.appendChild(s);</script>
 
-  <div class="hero-after esconder" id="heroAfter">
-    <p class="pill"><i></i>Programa de emagrecimento · 21 dias</p>
-    <h1>Você pode perder <span class="big">até 7 kg</span> nos próximos 21 dias</h1>
-    <p class="sub">Um protocolo de 3 semanas com <b>alimentação organizada, treino e cardio</b> para quem cansou de começar uma dieta, parar no meio e voltar sempre para o mesmo lugar.</p>
-  <div class="hero-cta" id="heroCta">
-    <a class="btn" data-cta href="https://pay.wiapy.com/IxwTm-Qw3vZG">Quero começar meu Reset 21 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    <ul class="facts"><li>21 dias</li><li>3 fases</li><li>Alimentação + treino + cardio</li></ul>
-    <p class="note">Resultados individuais podem variar.</p>
+  <!-- Espaço reservado: o botão aparece aqui sem empurrar o vídeo -->
+  <div class="unlock-slot">
+    <div class="hero-after esconder" id="heroAfter">
+      <div class="hero-cta" id="heroCta">
+        <p class="unlocked-tag"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Conteúdo liberado</p>
+        <a class="btn btn-next" href="#o-que-e">Conhecer o Método Reset 21 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+      </div>
+    </div>
   </div>
-  </div>
+  <p class="note hero-note">Resultados individuais podem variar.</p>
 </header>
 
 <main class="esconder" id="conteudo">
